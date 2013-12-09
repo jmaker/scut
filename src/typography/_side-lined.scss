@@ -7,12 +7,18 @@
   $color: inherit,
   $style: solid,
   $v-adjust: false,
-  $double: false
+  $double: false,
+  $fade: false
 ) {
 
   display: block;
   overflow: hidden;
   text-align: center;
+  @if $fade != false {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
   &:before,
   &:after {
@@ -50,6 +56,25 @@
   &:after {
     left: $space;
     margin-right: -50%;
+  }
+
+  @if $fade != false {
+    &:before, &:after {
+      border: none;
+      width: calc(100% / 3);
+      height: $height;
+      content: "";
+    }
+    &:before {
+      right: 0;
+      margin-right: $space;
+      background-image: linear-gradient(to left, $color, transparent);
+    }
+    &:after {
+      left: 0;
+      margin-left: $space;
+      background-image: linear-gradient(to right, $color, transparent);
+    }
   }
 
 }
